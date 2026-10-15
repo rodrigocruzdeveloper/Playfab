@@ -1,9 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-
 using PlayFab;
 using PlayFab.ClientModels;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayfabManager : MonoBehaviour
@@ -65,5 +65,31 @@ public class PlayfabManager : MonoBehaviour
         Debug.Log(msg);
     }
 
-    
+    public void SendScore(int score)
+    {
+        var request = new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<StatisticUpdate>
+            {
+
+                new StatisticUpdate
+                {
+                    // Nome da estatistica criada no Playfab
+                    StatisticName = "HighScores", Value = score
+                }
+            }
+
+        };
+
+        PlayFabClientAPI.UpdatePlayerStatistics(
+
+            request,
+
+            result => Debug.Log("Score update sucess."),
+
+            error => Debug.Log("Error. When sendo score.")
+
+            );
+
+    }
 }

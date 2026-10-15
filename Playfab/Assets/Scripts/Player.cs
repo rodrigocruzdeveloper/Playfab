@@ -28,4 +28,34 @@ public class Player : MonoBehaviour
 
     // EXPLICAR COMO ENVIAR OS DADOS DO JOGO PARA O PLAYFAB
 
+    public void DefNAme(string name)
+    {
+        // Cria uma requisição para atualizar o nome chave o playfab
+        var request = new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = name
+        };
+
+        // Enviando a requisição ao Playfab para atualizar o nome do jogador
+        PlayFabClientAPI.UpdateUserTitleDisplayName(
+
+            request,
+
+            // Caso a atualização seja concluida, exibe no console o novo cadastro
+            result => Debug.Log("Update name:" + result.DisplayName),
+
+            // Caso ocorra algum erro
+            error => Debug.Log("Error update name: " + error.GenerateErrorReport())
+
+         );
+    }
+
+    void OnLoginSucess(LoginResult result)
+    {
+        Debug.Log("Login, sucess.");
+    }
+
+   
+
+
 }
